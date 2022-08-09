@@ -33,12 +33,19 @@ const App = () => {
         setTotal(`${Number(income) < Number(expense) ? "-" : ""} R$ ${total}`);//se as entradas for menor que a saida, ele coloca uma saida de menos e depois coloca o total
     }, [transactionsList]);//Qaundo mudar a lista de transação, ele muda o calculo
 
+    const handleAdd = (transaction) => {
+        const newArrayTransactions = [...transactionsList, transaction]//recebendo transação e pegando em um neewarray todos os item e adicionando novas ações
+
+        setTransactionsList(newArrayTransactions)
+
+        localStorage.setItem("transactions", JSON.stringify(newArrayTransactions))//seta no localstorage esse item passando o novo array
+    };
 
     return (
         <>
             <Header />
             <Resume income={income} expense={expense} total={total} />
-            <Form />
+            <Form handleAdd={handleAdd}/>
             <GlobalStyle />
         </>
 
